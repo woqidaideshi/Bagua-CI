@@ -24,7 +24,7 @@ logfile=$(mktemp /tmp/bagua_benchmark.XXXXXX.log)
 python -m bagua.distributed.run \
     --standalone \
     --nnodes=1 \
-    --nproc_per_node 4 \
+    --nproc_per_node 1 \
     --no_python \
     --autotune_level 1 \
     --default_bucket_size 2147483648 \

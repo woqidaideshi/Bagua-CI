@@ -14,9 +14,9 @@ echo "begin to test [communication_primitives]"
 COMMUNICATION_SCRIPT="/workdir/examples/communication_primitives/main.py"
 NCCL_SOCKET_IFNAME=^docker,lo,veth python -m bagua.distributed.launch \
     --nnodes=2 \
-    --nproc_per_node 4 \
+    --nproc_per_node 1 \
     --node_rank=1 \
-    --master_addr="10.158.66.134" \
+    --master_addr="3.126.245.86" \
     --master_port=1234 \
     ${COMMUNICATION_SCRIPT}
 
@@ -29,9 +29,9 @@ for ((i = 0; i < $length; i++)); do
     logfile=$(mktemp /tmp/bagua_benchmark_${algorithms[$i]}.XXXXXX.log)
     NCCL_SOCKET_IFNAME=^docker,lo,veth GLOO_SOCKET_IFNAME=enp96s0f0 python -m bagua.distributed.launch \
         --nnodes=2 \
-        --nproc_per_node 4 \
+        --nproc_per_node 1 \
         --node_rank=1 \
-        --master_addr="10.158.66.134" \
+        --master_addr="3.126.245.86" \
         --master_port=1234 \
         ${SYNTHETIC_SCRIPT} \
         --num-iters 100 \
@@ -45,11 +45,11 @@ done
 # 3. test moe
 MOE_SCRIPT="/workdir/examples/moe/mnist_main.py"
 logfile=$(mktemp /tmp/bagua_moe_gradient_allreduce.XXXXXX.log)
-NCCL_SOCKET_IFNAME=^docker,lo,veth CUDA_VISIBLE_DEVICES=0,1 python -m bagua.distributed.launch \
+NCCL_SOCKET_IFNAME=^docker,lo,veth CUDA_VISIBLE_DEVICES=0 python -m bagua.distributed.launch \
     --nnodes=2 \
-    --nproc_per_node 2 \
+    --nproc_per_node 1 \
     --node_rank=1 \
-    --master_addr="10.158.66.134" \
+    --master_addr="3.126.245.86" \
     --master_port=1234 \
     ${MOE_SCRIPT} \
     --algorithm gradient_allreduce \
