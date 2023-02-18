@@ -10,7 +10,9 @@ pwd
 whoami
 echo ---$HOME--
 ls -la
-ls -la ./bagua/
+if [ -d ./bagua/ ]; then
+    ls -la ./bagua/
+fi
 pip list | grep bagua
 echo ------worker----1
 
@@ -22,7 +24,9 @@ pwd
 whoami
 echo ---$HOME--
 ls -la
-ls -la ./bagua/
+if [ -d ./bagua/ ]; then
+    ls -la ./bagua/
+fi
 pip list | grep bagua
 echo ------worker----3
 # 1. test communication_primitives api

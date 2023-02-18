@@ -9,7 +9,9 @@ pwd
 whoami
 echo ---$HOME--
 ls -la
-ls -la ./bagua/
+if [ -d ./bagua/ ]; then
+    ls -la ./bagua/
+fi
 pip list | grep bagua
 echo ------benchmark----1
 
@@ -22,7 +24,9 @@ pwd
 whoami
 echo ---$HOME--
 ls -la
-ls -la ./bagua/
+if [ -d ./bagua/ ]; then
+    ls -la ./bagua/
+fi
 pip list | grep bagua
 echo ------benchmark----3
 SYNTHETIC_SCRIPT="examples/benchmark/synthetic_benchmark.py"

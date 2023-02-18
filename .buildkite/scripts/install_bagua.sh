@@ -8,7 +8,9 @@ echo ----0----install_bagua
 pwd
 whoami
 ls -la
-ls -la ./bagua/
+if [ -d ./bagua/ ]; then
+    ls -la ./bagua/
+fi
 pip list | grep bagua
 echo ----2----install_bagua
 pip uninstall -y bagua bagua-core
@@ -25,13 +27,17 @@ echo ----3----install_bagua
 pwd
 whoami
 ls -la
-ls -la ./bagua/
+if [ -d ./bagua/ ]; then
+    ls -la ./bagua/
+fi
 pip list | grep bagua
 rm -rf bagua bagua_core
 echo ----4----install_bagua
 pwd
 whoami
 ls -la
-ls -la ./bagua/
+if [ -d ./bagua/ ]; then
+    ls -la ./bagua/
+fi
 pip list | grep bagua
 echo ----5----install_bagua

@@ -9,7 +9,9 @@ pwd
 whoami
 echo ---$HOME--
 ls -la
-ls -la ./bagua/
+if [ -d ./bagua/ ]; then
+    ls -la ./bagua/
+fi
 pip list | grep bagua
 echo ------master----1
 # 0. install bagua
@@ -20,7 +22,9 @@ pwd
 whoami
 echo ---$HOME--
 ls -la
-ls -la ./bagua/
+if [ -d ./bagua/ ]; then
+    ls -la ./bagua/
+fi
 pip list | grep bagua
 echo ------master----3
 # 1. test communication_primitives api
