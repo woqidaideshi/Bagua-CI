@@ -20,7 +20,7 @@ curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
 echo ---2---$HOME
 source $HOME/.cargo/env
 # cd /workdir && python3 -m pip install --force-reinstall --no-cache-dir . || exit 1
-git config --global --add safe.directory /workdir/rust/bagua-core/bagua-core-internal/third_party/Aluminum
+# git config --global --add safe.directory /workdir/rust/bagua-core/bagua-core-internal/third_party/Aluminum
 cd /workdir && python3 setup.py install -f || exit 1
 ls -la
 echo ----3----install_bagua
