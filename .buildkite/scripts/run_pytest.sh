@@ -4,8 +4,7 @@ echo "$BUILDKITE_PARALLEL_JOB"
 echo "$BUILDKITE_PARALLEL_JOB_COUNT"
 
 set -euo pipefail
-cp -a /upstream /workdir
-export HOME=/workdir && cd $HOME && bash .buildkite/scripts/install_bagua.sh || exit 1
+
 upgrade_python() {
     if [ ! -f "/root/Python-3.8.12.tgz" ]; then
         wget -q -nc --no-check-certificate -P /root https://www.python.org/ftp/python/3.8.12/Python-3.8.12.tgz
@@ -25,7 +24,12 @@ check_python_version() {
     fi
 
 }
+
+cp -a /upstream /workdir
+export HOME=/workdir && cd $HOME
 check_python_version
+bash .buildkite/scripts/install_bagua.sh || exit 1
+
 pip install pytest-timeout
 pip install git+https://github.com/PyTorchLightning/pytorch-lightning.git
 pytest --timeout=300 -s -o "testpaths=tests"
