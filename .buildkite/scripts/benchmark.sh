@@ -4,11 +4,27 @@ echo "$BUILDKITE_PARALLEL_JOB"
 echo "$BUILDKITE_PARALLEL_JOB_COUNT"
 
 set -euox pipefail
+echo ------benchmark----0
+pwd
+whoami
+echo ---$HOME--
+ls -la
+ls -la ./bagua/
+pip list | grep bagua
+echo ------benchmark----1
 
 cp -a /upstream /workdir
 
 export HOME=/workdir && cd $HOME && bash .buildkite/scripts/install_bagua.sh || exit 1
 
+echo ------benchmark----2
+pwd
+whoami
+echo ---$HOME--
+ls -la
+ls -la ./bagua/
+pip list | grep bagua
+echo ------benchmark----3
 SYNTHETIC_SCRIPT="examples/benchmark/synthetic_benchmark.py"
 
 function check_benchmark_log {

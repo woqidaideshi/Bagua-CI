@@ -4,11 +4,33 @@ echo "$BUILDKITE_PARALLEL_JOB"
 echo "$BUILDKITE_PARALLEL_JOB_COUNT"
 
 set -euox pipefail
-
+echo ----0----install_bagua
+pwd
+whoami
+ls -la
+ls -la ./bagua/
+pip list | grep bagua
+echo ----2----install_bagua
 pip uninstall -y bagua bagua-core
 export HOME=/workdir && cd $HOME
+echo ---1---$HOME
 curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
+echo ---2---$HOME
 source $HOME/.cargo/env
 # cd /workdir && python3 -m pip install --force-reinstall --no-cache-dir . || exit 1
 cd /workdir && python3 setup.py install -f || exit 1
+ls -la
+echo ----3----install_bagua
+pwd
+whoami
+ls -la
+ls -la ./bagua/
+pip list | grep bagua
 rm -rf bagua bagua_core
+echo ----4----install_bagua
+pwd
+whoami
+ls -la
+ls -la ./bagua/
+pip list | grep bagua
+echo ----5----install_bagua

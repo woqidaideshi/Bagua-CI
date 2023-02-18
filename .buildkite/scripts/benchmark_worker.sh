@@ -5,10 +5,26 @@ echo "$BUILDKITE_PARALLEL_JOB_COUNT"
 
 set -euox pipefail
 
+echo ------worker----0
+pwd
+whoami
+echo ---$HOME--
+ls -la
+ls -la ./bagua/
+pip list | grep bagua
+echo ------worker----1
+
 # 0. install bagua
 cp -a /upstream /workdir
 export HOME=/workdir && cd $HOME && bash .buildkite/scripts/install_bagua.sh || exit 1
-
+echo ------worker----2
+pwd
+whoami
+echo ---$HOME--
+ls -la
+ls -la ./bagua/
+pip list | grep bagua
+echo ------worker----3
 # 1. test communication_primitives api
 echo "begin to test [communication_primitives]"
 COMMUNICATION_SCRIPT="/workdir/examples/communication_primitives/main.py"
