@@ -25,10 +25,10 @@ check_python_version() {
 
 }
 
-cp -a /upstream /workdir
-export HOME=/workdir && cd $HOME
 check_python_version
-bash .buildkite/scripts/install_bagua.sh || exit 1
+
+cp -a /upstream /workdir
+export HOME=/workdir && cd $HOME && bash .buildkite/scripts/install_bagua.sh || exit 1
 
 pip install pytest-timeout
 pip install git+https://github.com/PyTorchLightning/pytorch-lightning.git

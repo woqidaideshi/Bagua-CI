@@ -46,7 +46,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: baguasys/bagua:master-${{ matrix.pytorch-version }}-${{ matrix.cuda-version }}-${{ matrix.cudnn-version }}
+          tags: woqidaideshi/bagua:master-${{ matrix.pytorch-version }}-${{ matrix.cuda-version }}-${{ matrix.cudnn-version }}
           file: docker/Dockerfile.${{ matrix.pytorch-version }}-${{ matrix.cuda-version }}-${{ matrix.cudnn-version }}
   build-manylinux:
     strategy:
@@ -75,5 +75,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: baguasys/manylinux-cuda:${{ matrix.cuda-version }}
+          tags: woqidaideshi/manylinux-cuda:${{ matrix.cuda-version }}
           file: docker/Dockerfile.manylinux-cuda${{ matrix.cuda-version }}
