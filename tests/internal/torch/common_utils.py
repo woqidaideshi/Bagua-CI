@@ -1040,7 +1040,7 @@ def check_slow_test_from_stats(test):
     global slow_tests_dict
     if slow_tests_dict is None:
         if not IS_SANDCASTLE and os.getenv("PYTORCH_RUN_DISABLED_TESTS", "0") != "1":
-            url = "https://raw.githubusercontent.com/pytorch/test-infra/master/stats/slow-tests.json"
+            url = "https://raw.githubusercontent.com/pytorch/test-infra/generated-stats/stats/slow-tests.json"
             slow_tests_dict = fetch_and_cache(".pytorch-slow-tests", url)
         else:
             slow_tests_dict = {}
