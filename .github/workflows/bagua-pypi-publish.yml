@@ -21,14 +21,16 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
           skip_existing: true
       - name: Publish package
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release')
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          repository_url: https://test.pypi.org/legacy/
           skip_existing: true
       - name: Archive package artifacts
         uses: actions/upload-artifact@v2
@@ -149,14 +151,16 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
           packages_dir: wheelhouse/
           skip_existing: true
+          repository_url: https://test.pypi.org/legacy/
 
       - name: Publish package
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release')
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
+          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
           packages_dir: wheelhouse/
+          repository_url: https://test.pypi.org/legacy/
