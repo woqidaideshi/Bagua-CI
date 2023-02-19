@@ -11,7 +11,7 @@ ls -la
 if [ -d ./bagua/ ]; then
     ls -la ./bagua/
 fi
-pip list | grep bagua
+pip list | grep bagua || echo no bagua found
 echo ----2----install_bagua
 pip uninstall -y bagua bagua-core
 export HOME=/workdir && cd $HOME
@@ -30,7 +30,7 @@ ls -la
 if [ -d ./bagua/ ]; then
     ls -la ./bagua/
 fi
-pip list | grep bagua
+pip list | grep bagua || echo no bagua found
 rm -rf bagua bagua_core
 echo ----4----install_bagua
 pwd
@@ -39,5 +39,5 @@ ls -la
 if [ -d ./bagua/ ]; then
     ls -la ./bagua/
 fi
-pip list | grep bagua
+pip list | grep bagua || echo no bagua found
 echo ----5----install_bagua
