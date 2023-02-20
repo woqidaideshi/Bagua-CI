@@ -15,6 +15,27 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
+      - name: test env
+        run: |
+          uname -a
+          cat /etc/os-release
+          python --version || echo no python
+          python3 --version || echo no python3
+          make --version || echo no make
+          cmake --version || echo no cmake
+          rustc --version || echo no rust
+          gcc --version || echo no gcc
+          nvcc --version || echo no cuda
+          lspci | grep NVIDI || echo no GPU
+          nvidia-smi || echo no nvidia-smi
+          pip3 list | grep torch || echo no torch in pip3
+          pip3 list | grep numpy || echo no numpy in pip3
+          pip3 list | grep tqdm || echo no tqdm in pip3
+          pip3 list | grep bagua || echo no bagua in pip3
+          pip list | grep torch || echo no torch in pip
+          pip list | grep numpy || echo no numpy in pip
+          pip list | grep tqdm || echo no tqdm in pip
+          pip list | grep bagua || echo no bagua in pip
       - run: BAGUA_NO_INSTALL_DEPS=1 python -m build -s
       - name: Publish a Python distribution to PyPI
         if: github.ref == 'refs/heads/master' && !startsWith(github.ref, 'refs/tags')
@@ -46,6 +67,27 @@ jobs:
       - publish
     steps:
     - run: rustup default stable
+    - name: test env
+      run: |
+        uname -a
+        cat /etc/os-release
+        python --version || echo no python
+        python3 --version || echo no python3
+        make --version || echo no make
+        cmake --version || echo no cmake
+        rustc --version || echo no rust
+        gcc --version || echo no gcc
+        nvcc --version || echo no cuda
+        lspci | grep NVIDI || echo no GPU
+        nvidia-smi || echo no nvidia-smi
+        pip3 list | grep torch || echo no torch in pip3
+        pip3 list | grep numpy || echo no numpy in pip3
+        pip3 list | grep tqdm || echo no tqdm in pip3
+        pip3 list | grep bagua || echo no bagua in pip3
+        pip list | grep torch || echo no torch in pip
+        pip list | grep numpy || echo no numpy in pip
+        pip list | grep tqdm || echo no tqdm in pip
+        pip list | grep bagua || echo no bagua in pip
     - name: Check install with pip
       run: |
         python -m pip install --pre bagua --upgrade
@@ -81,6 +123,27 @@ jobs:
         with:
           python-version: ${{ format('{0}.{1}', matrix.python-major-version, matrix.python-minor-version) }}
           architecture: 'x64'
+      - name: test env
+        run: |
+          uname -a
+          cat /etc/os-release
+          python --version || echo no python
+          python3 --version || echo no python3
+          make --version || echo no make
+          cmake --version || echo no cmake
+          rustc --version || echo no rust
+          gcc --version || echo no gcc
+          nvcc --version || echo no cuda
+          lspci | grep NVIDI || echo no GPU
+          nvidia-smi || echo no nvidia-smi
+          pip3 list | grep torch || echo no torch in pip3
+          pip3 list | grep numpy || echo no numpy in pip3
+          pip3 list | grep tqdm || echo no tqdm in pip3
+          pip3 list | grep bagua || echo no bagua in pip3
+          pip list | grep torch || echo no torch in pip
+          pip list | grep numpy || echo no numpy in pip
+          pip list | grep tqdm || echo no tqdm in pip
+          pip list | grep bagua || echo no bagua in pip
       - name: Check install with pip
         run: |
           python -m pip install --pre bagua-cuda${BAGUA_CUDA_VERSION} --upgrade
@@ -111,7 +174,7 @@ jobs:
 
     env:
       CIBW_BUILD: "${{ format('cp{0}{1}*', matrix.python-major-version, matrix.python-minor-version) || '*' }}"
-      CIBW_MANYLINUX_X86_64_IMAGE: "woqidaideshi/manylinux-cuda:${{ matrix.cuda-version }}"
+      CIBW_MANYLINUX_X86_64_IMAGE: "baguasys/manylinux-cuda:${{ matrix.cuda-version }}"
       CIBW_ARCHS_LINUX: "${{ matrix.arch || 'auto' }}"
       CIBW_ENVIRONMENT: 'AUDITWHEEL_PLAT="manylinux2014_${{ matrix.arch }}" BAGUA_CUDA_VERSION="${{ matrix.cuda-version }}"'
       CIBW_REPAIR_WHEEL_COMMAND: "auditwheel show {wheel} && auditwheel repair -w {dest_dir} --exclude libnccl {wheel}"
@@ -135,6 +198,27 @@ jobs:
       - name: show environment
         run: |
           pip freeze
+      - name: test env
+        run: |
+          uname -a
+          cat /etc/os-release
+          python --version || echo no python
+          python3 --version || echo no python3
+          make --version || echo no make
+          cmake --version || echo no cmake
+          rustc --version || echo no rust
+          gcc --version || echo no gcc
+          nvcc --version || echo no cuda
+          lspci | grep NVIDI || echo no GPU
+          nvidia-smi || echo no nvidia-smi
+          pip3 list | grep torch || echo no torch in pip3
+          pip3 list | grep numpy || echo no numpy in pip3
+          pip3 list | grep tqdm || echo no tqdm in pip3
+          pip3 list | grep bagua || echo no bagua in pip3
+          pip list | grep torch || echo no torch in pip
+          pip list | grep numpy || echo no numpy in pip
+          pip list | grep tqdm || echo no tqdm in pip
+          pip list | grep bagua || echo no bagua in pip
       - name: list target wheels
         run: |
           python -m cibuildwheel . --print-build-identifiers
