@@ -111,7 +111,7 @@ jobs:
 
     env:
       CIBW_BUILD: "${{ format('cp{0}{1}*', matrix.python-major-version, matrix.python-minor-version) || '*' }}"
-      CIBW_MANYLINUX_X86_64_IMAGE: "baguasys/manylinux-cuda:${{ matrix.cuda-version }}"
+      CIBW_MANYLINUX_X86_64_IMAGE: "woqidaideshi/manylinux-cuda:${{ matrix.cuda-version }}"
       CIBW_ARCHS_LINUX: "${{ matrix.arch || 'auto' }}"
       CIBW_ENVIRONMENT: 'AUDITWHEEL_PLAT="manylinux2014_${{ matrix.arch }}" BAGUA_CUDA_VERSION="${{ matrix.cuda-version }}"'
       CIBW_REPAIR_WHEEL_COMMAND: "auditwheel show {wheel} && auditwheel repair -w {dest_dir} --exclude libnccl {wheel}"
@@ -131,6 +131,7 @@ jobs:
         run: |
           pip install --upgrade setuptools pip wheel
           pip install cibuildwheel==2.1.3
+          pip list | grep cmake || (echo no cmake && pip install cmake)
       - name: show environment
         run: |
           pip freeze
