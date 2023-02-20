@@ -42,10 +42,12 @@ jobs:
           pip3 list | grep numpy || echo no numpy in pip3
           pip3 list | grep tqdm || echo no tqdm in pip3
           pip3 list | grep bagua || echo no bagua in pip3
+          pip3 list | grep cmake || echo no cmake in pip3
           pip list | grep torch || echo no torch in pip
           pip list | grep numpy || echo no numpy in pip
           pip list | grep tqdm || echo no tqdm in pip
           pip list | grep bagua || echo no bagua in pip
+          pip list | grep cmake || echo no cmake in pip
       - name: Pytype Python Checker
         # You may pin to the exact commit or the version.
         # uses: theahura/pytype-action@38cf548b60f6da64118a1d74e3277efcf533e1a2
