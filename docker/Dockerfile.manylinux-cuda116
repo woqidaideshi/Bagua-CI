@@ -7,7 +7,7 @@ RUN yum install -y openmpi3-devel openmpi3 hwloc-devel perl-IPC-Cmd
 RUN ln -sf /usr/bin/cmake3 /usr/bin/cmake
 
 RUN yum install -y python3-devel zlib-devel openssl-devel
-RUN python3 -m pip install setuptools-rust colorama tqdm wheel cmake -i https://pypi.org/simple
+RUN python3 -m pip install setuptools-rust colorama tqdm wheel -i https://pypi.org/simple
 
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
