@@ -71,8 +71,6 @@ if __name__ == "__main__":
         )
         os.system("python3 bagua_core/bagua_install_deps.py")
         install_dependency_library()
-    else:
-        os.makedirs(os.path.join(cwd, "bagua_core", ".data"), exist_ok=True)
 
     name_suffix = os.getenv("BAGUA_CUDA_VERSION", "")
     if name_suffix != "":
