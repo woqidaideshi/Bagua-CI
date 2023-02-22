@@ -29,8 +29,16 @@ def check_torch_version():
 
 def install_baguanet(destination):
     os.makedirs(destination, exist_ok=True)
-    os.system("pwd")
+    print("--------pwd-----")
+    print(os.system("pwd"))
+    print("--------ls -la-----")
     os.system("ls -la")
+    print("--------ls -la rust || echo no rust-----")
+    os.system("ls -la rust || echo no rust")
+    print("--------ls -la rust/bagua || echo no rust/bagua-----")
+    os.system("ls -la rust/bagua || echo no rust/bagua")
+    print("--------ls -la rust/bagua-net/cc || echo no rust/bagua-net/cc-----")
+    os.system("ls -la rust/bagua-net/cc || echo no rust/bagua-net/cc")
     os.system("cd rust/bagua-net/cc && make")
     shutil.move(
         "rust/bagua-net/cc/libnccl-net.so", os.path.join(destination, "libnccl-net.so")
