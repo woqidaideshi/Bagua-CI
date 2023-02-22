@@ -94,7 +94,9 @@ jobs:
         pip list | grep cmake || echo no cmake in pip
     - name: Check install with pip
       run: |
-        python -m pip install --pre bagua==$(python setup.py --version) --upgrade
+        bagua_version=$(python setup.py --version)
+        echo ---${bagua_version}
+        python -m pip install --pre bagua==${bagua_version} --upgrade
 
   check_wheel_install:
     strategy:
