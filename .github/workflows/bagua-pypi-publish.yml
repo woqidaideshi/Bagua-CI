@@ -38,7 +38,7 @@ jobs:
           pip list | grep tqdm || echo no tqdm in pip
           pip list | grep bagua || echo no bagua in pip
           pip list | grep cmake || echo no cmake in pip
-      - run: git config --global --add safe.directory ../ && BAGUA_NO_INSTALL_DEPS=1 python -m build -s
+      - run: git config --global --add safe.directory $(pwd) && BAGUA_NO_INSTALL_DEPS=1 python -m build -s
       - name: Publish a Python distribution to PyPI
         if: github.ref == 'refs/heads/master' && !startsWith(github.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@release/v1
