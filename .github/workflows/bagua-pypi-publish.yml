@@ -188,7 +188,7 @@ jobs:
       CIBW_ARCHS_LINUX: "${{ matrix.arch || 'auto' }}"
       CIBW_ENVIRONMENT: 'AUDITWHEEL_PLAT="manylinux2014_${{ matrix.arch }}" BAGUA_CUDA_VERSION="${{ matrix.cuda-version }}"'
       CIBW_REPAIR_WHEEL_COMMAND: "auditwheel show {wheel} && auditwheel repair -w {dest_dir} --exclude libnccl {wheel}"
-      CIBW_BEFORE_BUILD: "pip install git+https://github.com/rossant/auditwheel.git@include-exclude && pwd && git config --global --add safe.directory $(pwd)"
+      CIBW_BEFORE_BUILD: "pip install git+https://github.com/rossant/auditwheel.git@include-exclude && git config --global --add safe.directory $(pwd)/rust/bagua-core/bagua-core-internal/third_party/Aluminum && git config --global --add safe.directory /project"
 
     steps:
       - uses: actions/checkout@v2
