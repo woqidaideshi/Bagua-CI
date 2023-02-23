@@ -29,6 +29,10 @@ def check_torch_version():
 
 def install_baguanet(destination):
     os.makedirs(destination, exist_ok=True)
+    print("-------cmake --version")
+    print(os.system("cmake --version || echo no cmake"))
+    print(os.system("pip list | grep cmake || echo no cmake in pip"))
+    print(os.system("pip3 list | grep cmake || echo no cmake in pip3"))
     print("--------pwd-----")
     print(os.system("pwd"))
     print("--------ls -la-----")
