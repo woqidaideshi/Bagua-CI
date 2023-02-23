@@ -5,10 +5,10 @@ RUN ln -s /usr/local/cuda-11.6 /usr/local/cuda
 
 RUN yum install centos-release-scl-rh -y && yum install devtoolset-8-toolchain -y
 RUN yum remove okay-release -y && yum install http://repo.okay.com.mx/centos/7/x86_64/release/okay-release-1-1.noarch.rpm -y
-RUN yum remove cmake cmake3 -y && yum install cmake3 -y
-RUN yum install -y openmpi3-devel openmpi3 hwloc-devel perl-IPC-Cmd
-RUN rm -rf /usr/local/bin/cmake
-RUN rm -rf /usr/bin/cmake && ln -sf /usr/bin/cmake3 /usr/bin/cmake
+RUN yum remove cmake3 -y
+RUN yum install -y openmpi3-devel openmpi3 hwloc-devel perl-IPC-Cmd cmake3
+RUN rm -rf /usr/local/bin/cmake /usr/bin/cmake
+RUN ln -sf /usr/bin/cmake3 /usr/bin/cmake
 
 RUN yum install -y python3-devel zlib-devel openssl-devel
 RUN python3 -m pip install setuptools-rust colorama tqdm wheel -i https://pypi.org/simple
