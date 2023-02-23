@@ -204,7 +204,6 @@ jobs:
         run: |
           pip install --upgrade setuptools pip wheel
           pip install cibuildwheel==2.1.3
-          pip list | grep cmake || (echo no cmake && pip install cmake)
       - name: show environment
         run: |
           pip freeze
