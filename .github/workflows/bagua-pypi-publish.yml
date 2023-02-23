@@ -69,6 +69,9 @@ jobs:
       - publish
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        submodules: recursive
     - run: rustup default stable
     - name: test env
       run: |
@@ -95,9 +98,7 @@ jobs:
         pip list | grep cmake || echo no cmake in pip
     - name: Check install with pip
       run: |
-        bagua_version=$(python setup.py --version)
-        echo ---${bagua_version}
-        python -m pip install --pre bagua==${bagua_version} --upgrade
+        python -m pip install -i https://test.pypi.org/simple/ --trusted-host test.pypi.org --pre bagua==$(python setup.py --version) --upgrade
 
   check_wheel_install:
     strategy:
