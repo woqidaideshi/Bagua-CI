@@ -45,6 +45,7 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          skip_existing: true
           repository_url: https://test.pypi.org/legacy/
       - name: Archive package artifacts
         uses: actions/upload-artifact@v2
@@ -239,6 +240,7 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+          skip_existing: true
           packages_dir: wheelhouse/
           repository_url: https://test.pypi.org/legacy/
 
