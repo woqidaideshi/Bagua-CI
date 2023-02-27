@@ -17,7 +17,7 @@ bytes = "1.1"
 libc = "0.2"
 ffi-convert = "0.5"
 flume = "0.10"
-socket2 = "0.4"
+socket2 = "0.5"
 opentelemetry = { version = "0.16", features = [
     "trace",
     "metrics",
