@@ -50,6 +50,7 @@ def install_baguanet(destination):
     shutil.move(
         "rust/bagua-net/cc/libnccl-net.so", os.path.join(destination, "libnccl-net.so")
     )
+    print("test next wheel")
 
 
 def install_dependency_library():
