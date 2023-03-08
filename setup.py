@@ -103,7 +103,7 @@ if __name__ == "__main__":
         name="bagua" + name_suffix,
         use_scm_version={
             "local_scheme": "no-local-version",
-            "fallback_version": "0.9.2",
+            "fallback_version": "0.9.3rc1",
         },
         setup_requires=["setuptools_scm"],
         url="https://github.com/BaguaSys/bagua",
