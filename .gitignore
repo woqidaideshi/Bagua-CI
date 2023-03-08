@@ -20,3 +20,4 @@ dbg.h
 .data/
 /_build/
 /venv/
+.eggs
