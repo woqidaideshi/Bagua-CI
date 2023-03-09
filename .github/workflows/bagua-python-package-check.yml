@@ -10,7 +10,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build-1.9.0:
+  build-default:
     runs-on: ubuntu-latest
     container: woqidaideshi/bagua:master-pytorch-1.9.0-cuda11.1-cudnn8
     steps:
@@ -52,7 +52,7 @@ jobs:
       run: |
         rm -rf bagua bagua_core
         pytest -s --timeout=300 --timeout_method=thread
-  build-1.10.0:
+  build-addone:
     runs-on: ubuntu-latest
     container: woqidaideshi/bagua:master-pytorch-1.10.0-cuda11.3-cudnn8
     steps:
@@ -94,7 +94,7 @@ jobs:
       run: |
         rm -rf bagua bagua_core
         pytest -s --timeout=300 --timeout_method=thread
-  build-1.11.0:
+  build-addtwo:
     runs-on: ubuntu-latest
     container: woqidaideshi/bagua:master-pytorch-1.11.0-cuda11.3-cudnn8
     steps:
@@ -136,7 +136,7 @@ jobs:
       run: |
         rm -rf bagua bagua_core
         pytest -s --timeout=300 --timeout_method=thread
-  build-1.12.0:
+  build-addthree:
     runs-on: ubuntu-latest
     container: woqidaideshi/bagua:master-pytorch-1.12.0-cuda11.3-cudnn8
     steps:
@@ -178,7 +178,7 @@ jobs:
       run: |
         rm -rf bagua bagua_core
         pytest -s --timeout=300 --timeout_method=thread
-  build-1.13.0:
+  build-addfour:
     runs-on: ubuntu-latest
     container: woqidaideshi/bagua:master-pytorch-1.13.0-cuda11.6-cudnn8
     steps:
