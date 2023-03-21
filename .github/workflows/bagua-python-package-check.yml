@@ -220,3 +220,45 @@ jobs:
       run: |
         rm -rf bagua bagua_core
         pytest -s --timeout=300 --timeout_method=thread
+  build-addfive:
+    runs-on: ubuntu-latest
+    container: woqidaideshi/bagua:master-pytorch-2.0.0-cuda11.7-cudnn8
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+    - run: rustup default stable
+    - name: Install with pip
+      run: |
+        python -m pip install --pre .
+    - name: Install pytest
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install pytest pytest-timeout
+    - name: test env
+      run: |
+        uname -a
+        cat /etc/os-release
+        python --version || echo no python
+        python3 --version || echo no python3
+        make --version || echo no make
+        cmake --version || echo no cmake
+        rustc --version || echo no rust
+        gcc --version || echo no gcc
+        nvcc --version || echo no cuda
+        lspci | grep NVIDI || echo no GPU
+        nvidia-smi || echo no nvidia-smi
+        pip3 list | grep torch || echo no torch in pip3
+        pip3 list | grep numpy || echo no numpy in pip3
+        pip3 list | grep tqdm || echo no tqdm in pip3
+        pip3 list | grep bagua || echo no bagua in pip3
+        pip3 list | grep cmake || echo no cmake in pip3
+        pip list | grep torch || echo no torch in pip
+        pip list | grep numpy || echo no numpy in pip
+        pip list | grep tqdm || echo no tqdm in pip
+        pip list | grep bagua || echo no bagua in pip
+        pip list | grep cmake || echo no cmake in pip
+    - name: Test with pytest
+      run: |
+        rm -rf bagua bagua_core
+        pytest -s --timeout=300 --timeout_method=thread
