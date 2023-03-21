@@ -152,7 +152,7 @@ jobs:
           pip list | grep cmake || echo no cmake in pip
       - name: Check install with pip
         run: |
-          python -m pip install --pre bagua-cuda${BAGUA_CUDA_VERSION} --upgrade
+          python -m pip install --extra-index-url https://test.pypi.org/simple/ --trusted-host test.pypi.org --pre bagua-cuda${BAGUA_CUDA_VERSION} --upgrade
 
   wheel:
     strategy:
