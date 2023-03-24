@@ -379,9 +379,9 @@ dependencies = [
 
 [[package]]
 name = "ffi-convert"
-version = "0.5.0"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "36e8b2c8fd8f9948c8db1848bef2e9aade535b1461e59204d67e18a9a35b4af6"
+checksum = "83979d1b24808a399d1506a7213c3f3c512fa1d8701a27e80141e47ff09aac93"
 dependencies = [
  "ffi-convert-derive",
  "libc",
@@ -390,9 +390,9 @@ dependencies = [
 
 [[package]]
 name = "ffi-convert-derive"
-version = "0.5.0"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ced52c8e0b09123ed593c2e7f581f42d1cf035d3289732d2c627b5cd5e165bf3"
+checksum = "fe9ea801ee0e90ec33e6483df59c4644b89c49be7cd0e50b2a762773e552afba"
 dependencies = [
  "proc-macro2",
  "quote",
