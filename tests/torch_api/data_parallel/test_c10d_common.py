@@ -47,7 +47,7 @@ from tests.internal.torch.common_utils import (
 )
 
 import bagua.torch_api.data_parallel.functional as bagua_dist
-from bagua.torch_api.contrib.sync_batchnorm import _SYNC_BN_V5, _SYNC_BN_V6
+from bagua.torch_api.contrib.sync_batchnorm import _SYNC_BN_V5, _SYNC_BN_V6, _SYNC_BN_V7
 
 # load_tests from common_utils is used to automatically filter tests for
 # sharding on sandcastle. This line silences flake warnings
@@ -307,6 +307,9 @@ class MyPythonStore(c10d.Store):
 
 
 class PythonStoreTest(TestCase):
+    @unittest.skipIf(
+        _SYNC_BN_V7, "Skip setUp of PythonStoreTest for torch >= 2.0.0"
+    )
     def setUp(self):
         super(PythonStoreTest, self).setUp()
 
