@@ -44,6 +44,7 @@ from tests.internal.torch.common_utils import (
 )
 
 import bagua.torch_api.data_parallel.functional as bagua_dist
+from bagua.torch_api.contrib.sync_batchnorm import _SYNC_BN_V5
 
 # load_tests from common_utils is used to automatically filter tests for
 # sharding on sandcastle. This line silences flake warnings
@@ -879,15 +880,15 @@ class ComputeBucketAssignmentTest(TestCase):
             torch.empty([50], dtype=torch.float),
             torch.empty([25], dtype=torch.double),
         ]
-        if torch.__version__ < "1.10.0":
-            result = dist._compute_bucket_assignment_by_size(tensors, [200, 400])
-            self.assertEqual([[0], [1], [2, 4], [3, 5]], result)
-        else:
+        if _SYNC_BN_V5:
             result, per_bucket_size_limits = dist._compute_bucket_assignment_by_size(
                 tensors, [400]
             )
             self.assertTrue(all(size_lim == 400 for size_lim in per_bucket_size_limits))
             self.assertEqual([[0, 2], [1, 3], [4], [5]], result)
+        else:
+            result = dist._compute_bucket_assignment_by_size(tensors, [200, 400])
+            self.assertEqual([[0], [1], [2, 4], [3, 5]], result)
 
 class AbstractCommTest(object):
 
