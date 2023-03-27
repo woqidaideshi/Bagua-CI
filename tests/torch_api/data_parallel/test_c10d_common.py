@@ -132,6 +132,9 @@ class StoreTestBase(object):
         return 5
 
 
+@unittest.skipIf(
+    _SYNC_BN_V7, "Skip FileStoreTest for torch >= 2.0.0"
+)
 class FileStoreTest(TestCase, StoreTestBase):
     def setUp(self):
         super(FileStoreTest, self).setUp()
@@ -154,6 +157,9 @@ class HashStoreTest(TestCase, StoreTestBase):
         return store
 
 
+@unittest.skipIf(
+    _SYNC_BN_V7, "Skip PrefixFileStoreTest for torch >= 2.0.0"
+)
 class PrefixFileStoreTest(TestCase, StoreTestBase):
     def setUp(self):
         super(PrefixFileStoreTest, self).setUp()
@@ -307,9 +313,6 @@ class MyPythonStore(c10d.Store):
 
 
 class PythonStoreTest(TestCase):
-    @unittest.skipIf(
-        _SYNC_BN_V7, "Skip setUp of PythonStoreTest for torch >= 2.0.0"
-    )
     def setUp(self):
         super(PythonStoreTest, self).setUp()
 
