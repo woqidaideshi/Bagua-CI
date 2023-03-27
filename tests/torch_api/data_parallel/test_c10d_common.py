@@ -24,7 +24,10 @@ import torch.distributed.algorithms.ddp_comm_hooks.powerSGD_hook as powerSGD
 import torch.multiprocessing as mp
 import torch.nn.functional as F
 from torch import nn
-from torch._six import string_classes
+if hasattr(torch, "_six"):
+    from torch._six import string_classes
+else:
+    string_classes = str
 from bagua.torch_api.data_parallel import DistributedDataParallel
 from tests.internal.torch.common_distributed import (
     MultiProcessTestCase,
@@ -181,8 +184,8 @@ class TCPStoreTest(TestCase, StoreTestBase):
             # Use noqa to silence flake8.
             # Need to store in an unused variable here to ensure the first
             # object is not destroyed before the second object is created.
-            store1 = c10d.TCPStore(addr, port, 1, True)  # noqa: F841
-            store2 = c10d.TCPStore(addr, port, 1, True)  # noqa: F841
+            store1 = dist.TCPStore(addr, port, 1, True)  # noqa: F841
+            store2 = dist.TCPStore(addr, port, 1, True)  # noqa: F841
 
     # The TCPStore has 6 keys in test_set_get. It contains the 5 keys added by
     # the user and one additional key used for coordinate all the workers.
