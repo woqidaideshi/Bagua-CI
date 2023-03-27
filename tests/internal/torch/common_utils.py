@@ -132,8 +132,10 @@ from tests.internal.torch import expecttest
 
 import torch
 import torch.cuda
-str
-from torch._six import string_classes
+if hasattr(torch, "_six"):
+    from torch._six import string_classes
+else:
+    string_classes = str
 import torch.backends.cudnn
 import torch.backends.mkl
 from enum import Enum
@@ -319,7 +321,7 @@ def shell(command, cwd=None, env=None):
     #
     # https://github.com/python/cpython/blob/71b6c1af727fbe13525fb734568057d78cea33f3/Lib/subprocess.py#L309-L323
     assert not isinstance(
-        command, torch._six.string_classes
+        command, string_classes
     ), "Command to shell should be a list or tuple of tokens"
     p = subprocess.Popen(command, universal_newlines=True, cwd=cwd, env=env)
     return wait_for_process(p)
