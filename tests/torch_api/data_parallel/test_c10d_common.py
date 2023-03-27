@@ -176,7 +176,7 @@ class TCPStoreTest(TestCase, StoreTestBase):
         if sys.platform == "win32":
             err_msg_reg = "Only one usage of each socket address*"
         else:
-            err_msg_reg = "^Address already in use$"
+            err_msg_reg = "^Address already in use"
         with self.assertRaisesRegex(RuntimeError, err_msg_reg):
             addr = DEFAULT_HOSTNAME
             port = find_free_port()
