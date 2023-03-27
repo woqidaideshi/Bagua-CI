@@ -44,7 +44,7 @@ from tests.internal.torch.common_utils import (
 )
 
 import bagua.torch_api.data_parallel.functional as bagua_dist
-from bagua.torch_api.contrib.sync_batchnorm import _SYNC_BN_V5
+from bagua.torch_api.contrib.sync_batchnorm import _SYNC_BN_V5, _SYNC_BN_V6
 
 # load_tests from common_utils is used to automatically filter tests for
 # sharding on sandcastle. This line silences flake warnings
@@ -1060,6 +1060,9 @@ class CommTest(AbstractCommTest, MultiProcessTestCase):
         except OSError:
             pass
 
+    @unittest.skipIf(
+        _SYNC_BN_V6, "Skip test for torch >= 1.11.0"
+    )
     def test_distributed_debug_mode(self):
         # Default should be off
         default_debug_mode = dist._get_debug_mode()
@@ -1085,6 +1088,46 @@ class CommTest(AbstractCommTest, MultiProcessTestCase):
             with self.assertRaisesRegex(RuntimeError, "to be one of"):
                 dist._get_debug_mode()
 
+    @unittest.skipIf(
+        not _SYNC_BN_V6, "Skip test for torch < 1.11.0"
+    )
+    def test_debug_level(self):
+        try:
+            del os.environ["TORCH_DISTRIBUTED_DEBUG"]
+        except KeyError:
+            pass
+
+        dist.set_debug_level_from_env()
+        # Default should be off
+        default_debug_mode = dist.get_debug_level()
+        self.assertEqual(default_debug_mode, dist.DebugLevel.OFF)
+        mapping = {
+            "OFF": dist.DebugLevel.OFF,
+            "off": dist.DebugLevel.OFF,
+            "oFf": dist.DebugLevel.OFF,
+            "INFO": dist.DebugLevel.INFO,
+            "info": dist.DebugLevel.INFO,
+            "INfO": dist.DebugLevel.INFO,
+            "DETAIL": dist.DebugLevel.DETAIL,
+            "detail": dist.DebugLevel.DETAIL,
+            "DeTaIl": dist.DebugLevel.DETAIL,
+        }
+        invalid_debug_modes = ["foo", 0, 1, -1]
+
+        for mode in mapping.keys():
+            os.environ["TORCH_DISTRIBUTED_DEBUG"] = str(mode)
+            dist.set_debug_level_from_env()
+            set_debug_mode = dist.get_debug_level()
+            self.assertEqual(
+                set_debug_mode,
+                mapping[mode],
+                f"Expected {mode} to map to {mapping[mode]} but got {set_debug_mode}",
+            )
+
+        for mode in invalid_debug_modes:
+            os.environ["TORCH_DISTRIBUTED_DEBUG"] = str(mode)
+            with self.assertRaisesRegex(RuntimeError, "The value of TORCH_DISTRIBUTED_DEBUG must"):
+                dist.set_debug_level_from_env()
 
 if __name__ == "__main__":
     assert (
