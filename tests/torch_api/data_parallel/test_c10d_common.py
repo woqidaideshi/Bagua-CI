@@ -879,9 +879,15 @@ class ComputeBucketAssignmentTest(TestCase):
             torch.empty([50], dtype=torch.float),
             torch.empty([25], dtype=torch.double),
         ]
-        result = dist._compute_bucket_assignment_by_size(tensors, [200, 400])
-        self.assertEqual([[0], [1], [2, 4], [3, 5]], result)
-
+        if torch.__version__ < "1.10.0":
+            result = dist._compute_bucket_assignment_by_size(tensors, [200, 400])
+            self.assertEqual([[0], [1], [2, 4], [3, 5]], result)
+        else:
+            result, per_bucket_size_limits = dist._compute_bucket_assignment_by_size(
+                tensors, [400]
+            )
+            self.assertTrue(all(size_lim == 400 for size_lim in per_bucket_size_limits))
+            self.assertEqual([[0, 2], [1, 3], [4], [5]], result)
 
 class AbstractCommTest(object):
 
