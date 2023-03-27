@@ -101,6 +101,11 @@ class StoreTestBase(object):
         self.assertEqual(b"value2", fs.get("key2"))
         self.assertEqual(b"21", fs.get("key3"))
 
+        fs.set("-key3", "7")
+        self.assertEqual(b"7", fs.get("-key3"))
+        fs.delete_key("-key3")
+        self.assertEqual(fs.num_keys(), self.num_keys_total)
+
     def test_set_get(self):
         self._test_set_get(self._create_store())
 
@@ -158,12 +163,12 @@ class PrefixFileStoreTest(TestCase, StoreTestBase):
     def setUp(self):
         super(PrefixFileStoreTest, self).setUp()
         self.file = tempfile.NamedTemporaryFile(delete=False)
-        self.filestore = c10d.FileStore(self.file.name, 1)
+        self.filestore = dist.FileStore(self.file.name, 1)
         self.prefix = "test_prefix"
         self.filestore.set_timeout(timedelta(seconds=300))
 
     def _create_store(self):
-        return c10d.PrefixStore(self.prefix, self.filestore)
+        return dist.PrefixStore(self.prefix, self.filestore)
 
 
 class TCPStoreTest(TestCase, StoreTestBase):
@@ -272,7 +277,7 @@ class PrefixTCPStoreTest(TestCase, StoreTestBase):
         self.tcpstore.set_timeout(timedelta(seconds=300))
 
     def _create_store(self):
-        return c10d.PrefixStore(self.prefix, self.tcpstore)
+        return dist.PrefixStore(self.prefix, self.tcpstore)
 
     # The PrefixTCPStore has 6 keys in test_set_get. It contains the 5 keys
     # added by the user and one additional key used for coordinate all the
@@ -307,9 +312,6 @@ class MyPythonStore(c10d.Store):
 
 
 class PythonStoreTest(TestCase):
-    @unittest.skipIf(
-        _SYNC_BN_V7, "Skip setUp of PythonStoreTest for torch >= 2.0.0"
-    )
     def setUp(self):
         super(PythonStoreTest, self).setUp()
 
