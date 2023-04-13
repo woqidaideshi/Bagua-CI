@@ -126,6 +126,7 @@ if __name__ == "__main__":
             "gorilla==0.4.0",
             "gevent>=21.8",
             "xxhash>=2.0",
+            "expecttest",
         ],
         entry_points={
             "console_scripts": [

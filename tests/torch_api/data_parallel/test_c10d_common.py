@@ -26,7 +26,10 @@ import torch.multiprocessing as mp
 import torch.nn.functional as F
 import torch.testing._internal.common_utils as common
 from torch import nn
-from torch._six import string_classes
+if hasattr(torch, "_six"):
+    from torch._six import string_classes
+else:
+    string_classes = str
 
 import bagua.torch_api.data_parallel.functional as bagua_dist
 from bagua.torch_api.data_parallel import DistributedDataParallel
