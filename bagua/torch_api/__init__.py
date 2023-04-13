@@ -29,6 +29,7 @@ from .communication import (  # noqa: F401
     init_process_group,
     send,
     recv,
+    barrier,
     broadcast,
     reduce,
     reduce_inplace,
